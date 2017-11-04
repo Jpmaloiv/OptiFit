@@ -4,24 +4,105 @@
 <head>
   <meta charset="utf-8">
   <title>Gym Finder</title>
+
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+
 </head>
 
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-   
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="./assets/javascript/logic.js"></script>
+
+  <!-- <script>
     var title = "Gym";
-    var queryURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/output?t=" + title + "&key=AIzaSyAao05aFS0ZpcQVC6hwXe4BAnSowj6Qal8";
+    var queryURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/output?t=" + title +
+      "&key=AIzaSyAao05aFS0ZpcQVC6hwXe4BAnSowj6Qal8";
 
     $.ajax({
       url: queryURL,
       method: "GET"
-    }).done(function(response) {
+    }).done(function (response) {
       console.log(response);
       console.log(response.opennow);
     });
-// ---------------------------------------------------------
-  </script>
+    // ---------------------------------------------------------
+  </script> -->
+
+
+  <div class='container'>
+    <div class='row'>
+
+      <!-- BIOMETRICS PANEL -->
+      <div id='input-panel' class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Biometrics Input</h3>
+        </div>
+
+
+        <div class='col-md-4'>
+          <div class='row'>
+            <h4>
+              AGE
+            </h4>
+
+            <div class="input-group">
+              <input id='age-input' type="text" class="form-control" aria-label="...">
+            </div>
+          </div>
+
+          <div class='row'>
+            <h4>
+              WEIGHT
+            </h4>
+
+            <div class="input-group">
+              <input id='weight-input' type="text" class="form-control" aria-label="...">
+            </div>
+          </div>
+
+          <div class='row'>
+            <h4>
+              HEIGHT(feet)
+            </h4>
+
+            <div class="input-group">
+              <input id='height-feet-input' type="text" class="form-control" aria-label="...">
+            </div>
+          </div>
+
+          <div class='row'>
+            <h4>
+              HEIGHT(inches)
+            </h4>
+
+            <div class="input-group">
+              <input id='height-inches-input' type="text" class="form-control" aria-label="...">
+            </div>
+          </div>
+
+          <div class='row'>
+            <h4>
+              GENDER
+            </h4>
+
+            <div class='btn-group btn-group-justified'>
+              <div class="btn-group" role="group">
+                <button data-gender='male' type="button" class="btn btn-default">Male</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button data-gender='female' type="button" class="btn btn-default">Female</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 
 </body>
 
