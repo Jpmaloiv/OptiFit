@@ -8,7 +8,7 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
-    
+
   <script src="./assets/d3/d3.min.js"></script>
 
 
@@ -36,20 +36,20 @@
 
 
   <div class='container'>
-    <div class='row'>
+    <div class='col-md-4'>
+      <div class='col-md-12 '>
+        <!-- BIOMETRICS PANEL -->
+        <div id='input-panel' class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Biometrics Input</h3>
+          </div>
 
-      <!-- BIOMETRICS PANEL -->
-      <div id='input-panel' class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Biometrics Input</h3>
-        </div>
 
 
-        <div class='col-md-4'>
           <div class='row'>
-            <h4>
+            <h5>
               AGE
-            </h4>
+            </h5>
 
             <div class="input-group">
               <input id='age-input' type="text" class="form-control" aria-label="...">
@@ -57,9 +57,9 @@
           </div>
 
           <div class='row'>
-            <h4>
+            <h5>
               WEIGHT
-            </h4>
+            </h5>
 
             <div class="input-group">
               <input id='weight-input' type="text" class="form-control" aria-label="...">
@@ -67,9 +67,9 @@
           </div>
 
           <div class='row'>
-            <h4>
+            <h5>
               HEIGHT(feet)
-            </h4>
+            </h5>
 
             <div class="input-group">
               <input id='height-feet-input' type="text" class="form-control" aria-label="...">
@@ -77,9 +77,9 @@
           </div>
 
           <div class='row'>
-            <h4>
+            <h5>
               HEIGHT(inches)
-            </h4>
+            </h5>
 
             <div class="input-group">
               <input id='height-inches-input' type="text" class="form-control" aria-label="...">
@@ -87,9 +87,9 @@
           </div>
 
           <div class='row'>
-            <h4>
+            <h5>
               GENDER
-            </h4>
+            </h5>
 
             <div class='btn-group btn-group-justified'>
               <div class="btn-group" role="group">
@@ -100,8 +100,50 @@
               </div>
             </div>
           </div>
+
+          <div class='row'>
+              <h5>
+                ZIP CODE
+              </h5>
+  
+              <div class="input-group">
+                <input id='zip-input' type="text" class="form-control" aria-label="...">
+              </div>
+            </div>
+
+
         </div>
       </div>
+    </div>
+
+    <div class='col-md-8'>
+      <div class='row'>
+
+        <div id='input-panel' class="panel panel-default">
+          <div class='panel-heading'>Local Gym Finder
+          </div>
+        </div>
+        TEST
+      </div>
+
+      <div class='row'>
+
+        <div id='input-panel' class="panel panel-default">
+          <div class='panel-heading'>STUFF1
+          </div>
+        </div>
+        STUFF1
+      </div>
+
+      <div class='row'>
+
+        <div id='input-panel' class="panel panel-default">
+          <div class='panel-heading'>OTHER STUFF2
+          </div>
+        </div>
+        OTHER STUFF GOES HERE2
+      </div>
+
     </div>
   </div>
   </div>
