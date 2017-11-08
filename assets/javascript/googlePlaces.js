@@ -1,4 +1,4 @@
-    var map;
+var map;
     var infowindow;
     var request;
     var service;
@@ -19,7 +19,7 @@
             zoom: 12
         });
 
-        //search for gyms within 5 miles or 8047 meters
+  //search for gyms within 5 miles or 8047 meters
         request = {
             location: center,
             radius: 8047,
@@ -37,16 +37,20 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
   //clear existing markers
   clearResults(markers)
 
-  //find gyms again if map moved.
-  var request = {
-    location: event.latLng,
-    radius: 8047,
-    types: ['gym']
-  };
-  service.nearbySearch(request, callback);
-})
+            //find gyms within listener ------------------.
+              request = {
+                location: event.latLng,
+                radius: 8047,
+                types: ['gym']
+              };
+              service.nearbySearch(request, callback);
+            //END find gyms withing addListener
 
-    }
+})  //END Listner---------
+
+    }    //END initial map function
+
+
 
 
 //hmmmm begin -------------------
@@ -98,23 +102,18 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
       var infowindow = new google.maps.InfoWindow({
         content: "I'm an infowindow!  Below me is a marker!"
       });
-
-
     // Zoom to 9 when clicking on marker
     google.maps.event.addListener(marker,'mouseover',function() {
-
       map.setCenter(marker.getPosition());
       //add infowindow when cliked
       infowindow.open(map,marker);
       });
-
     google.maps.event.addListener(marker,'dblclick',function() {
       map.setZoom(9);
       map.setCenter(marker.getPosition());
       //add infowindow when cliked
       infowindow.open(map,marker);
       });
-
      */
     // var infoWindow = new google.maps.InfoWindow;
 
@@ -130,6 +129,16 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
                 infowindow.setContent('Location found.');
                 infowindow.open(map);
                 map.setCenter(pos);
+            //find gyms within listener ------------------.
+              var request = {
+                location: pos,
+                radius: 8047,
+                types: ['gym']
+              };
+              service.nearbySearch(request, callback);
+            //END find gyms withing addListener
+
+
               }, function() {
                 handleLocationError(true, infowindow, map.getCenter());
               });
@@ -149,45 +158,5 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
                                   'Error: Your browser doesn\'t support geolocation.');
             infowindow.open(map);
 
-//search for gyms within 5 miles or 8047 meters
-        request = {
-            location: center,
-            radius: 8047,
-            types: ['gym']
-        }
-        infowindow = new google.maps.InfoWindow();
-
-        service = new google.maps.places.PlacesService(map);
-
-        service.nearbySearch(request, callback);
-
-    function callback(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                markers.push(createMarker(results[i]));
-            }
-        }
-    }
-
-    function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location
-        });
-
-        //add info tag to marker if clicked
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
-        return marker;
-    }
-
-    function clearResults(markers) {
-      for (var m in markers) {
-        markers[m].setMap(null)}
-      }
-      markers = []
-
           }
+    // END HTML5 geolocation....
