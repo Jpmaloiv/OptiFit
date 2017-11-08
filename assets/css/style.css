@@ -36,6 +36,8 @@ body {
 	width: 600px;
 	margin: 3% auto;
 	box-shadow: 0px 0px 15px 1px #fff;
+	text-shadow: none;
+	color: #000;
 }
 
 #gym-finder {
