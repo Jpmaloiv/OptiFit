@@ -14,10 +14,12 @@ caloriesNeeded : 0,
 proteinNeeded : 0,
 carbsNeeded: 0,
 alcoholNeeded:0,
+//urlFatSecret:"https://api.giphy.com/v1/gifs/search?api_key=YnhlYwxxNFYGZ57wVPP3cfFpv672Ts1g&limit=10&q=UFC",
+//"http://platform.fatsecret.com/js?key=9f7010053c5944e5800e2973089f2248&auto_load=true",
 
 
 calculateBMI: function(height, weight) {
-
+UFC
    BMI = (weight / (height * height)) * 703
 	
 return Math.round(BMI * Math.pow(10, 2)) / Math.pow(10, 2);
@@ -152,6 +154,33 @@ $("select").change(function(){
 $("#heightCen").change(function(){
     convertCen($("#heightCen").val());
 });
+
+//API call
+
+//$(document).on("click", "#submit-button2", function(e){
+
+//e.preventDefault();
+//$("#nutritionAPI").empty();
+
+
+//var theme    = "&q=" + $(this).attr("data-sports");
+//var queryURL     = userProfile.urlFatSecret;
+
+
+      // Making an http request using ajax
+     // $.ajax({
+       // url: queryURL,
+      //  method: "GET"
+      //})
+      // after the https is done do something
+     // .done(function(response) {
+
+     //   console.log(response);
+
+  //  });
+
+//});
+
 
 
 //validating if the age is a valid number
