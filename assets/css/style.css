@@ -7,8 +7,10 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#a0d8ef',GradientType=0 ); /* IE6-9 */
 }
 
-#input-panel {
-	margin: 10% 0;
+.container {
+	background: #fff;
+	padding: 3% 0;
+	box-shadow: 0px 0px 8px 0px #868282;
 }
 
 #input-panel .panel-heading {
@@ -27,8 +29,32 @@ body {
 	padding: 0 10% 0 10%;
 }
 
-#input-panel select {
+#input-panel select, input {
 	color: #000;
+}
+
+.col-md-8 .row {
+	padding: 0 5%;
+}
+
+#BMIHeading, #caloriesHeading {
+	background: #eec8cc;
+    background: -moz-linear-gradient(top, #eec8cc 0%, #8c4052 100%);
+    background: -webkit-linear-gradient(top, #eec8cc 0%,#8c4052 100%);
+    background: linear-gradient(to bottom, #eec8cc 0%,#8c4052 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eec8cc', endColorstr='#8c4052',GradientType=0 );
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+#BMIBody, #caloriesBody {
+	background: #cedce7;
+    background: -moz-linear-gradient(top, #cedce7 0%, #596a72 100%);
+    background: -webkit-linear-gradient(top, #cedce7 0%,#596a72 100%);
+    background: linear-gradient(to bottom, #cedce7 0%,#596a72 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedce7', endColorstr='#596a72',GradientType=0 );
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
 }
 
 #googleMap {
@@ -49,10 +75,6 @@ body {
 	color: #fff !important;
     text-shadow: 1px 1px 2px #000;
     box-shadow: 0px 0px 3px 1px #333
-}
-
-.col-md-8 #local-gym-finder {
-	margin: 5% 0 0 0;
 }
 
 
