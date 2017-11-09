@@ -3,8 +3,8 @@ var map;
     var request;
     var service;
     var markers = [];
-    var lat = -33.865936;
-    var lng = 151.216271;
+    var lat = 33.683015;
+    var lng = -117.755315;
 
 //initial map function:
     function myMapx() {
@@ -30,6 +30,77 @@ var map;
         service = new google.maps.places.PlacesService(map);
 
         service.nearbySearch(request, callback);
+///NEW NEW NEW BEGIN
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            //find gyms within listener ------------------.
+              request = {
+                location: place.geometry.location,
+                radius: 8047,
+                types: ['gym']
+              };
+              service.nearbySearch(request, callback);
+            //END find gyms withing addListener
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+   //   }
+        ////new new new END
 
 //listener to recenter map if right clicked
 google.maps.event.addListener(map, 'rightclick', function(event) {
@@ -51,9 +122,8 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
     }    //END initial map function
 
 
-
-
-//hmmmm begin -------------------
+//BEGIN marker
+//BEGIN create virtual marker begin -------------------
 
     function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -62,21 +132,32 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
             }
         }
     }
+//END create virtual marker  ------
 
+//BEGIN place marker--------
     function createMarker(place) {
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
             map: map,
-            position: place.geometry.location
+            position: place.geometry.location,
+            icon: './gym.png'
         });
 
-        //add info tag to marker if clicked
+//BEGIN add info tag to marker if clicked
         google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
+          var rating = place.rating;
+          var ratingString = rating.toString();
+          // var mapLink = "maps.google.com/maps/"+place.name
+          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                 'Rating: ' + ratingString + ' / out of 5<br>' + place.vicinity + '</div>'+
+                 '<div class="view link"><a target="_blank" href="https://google.com/maps/place/'+place.name+'"><span> View on Google Maps </span></a></div>');
+          console.log(place)
           infowindow.open(map, this);
         });
+//END add info tag to marker
         return marker;
     }
+//END place marker 
 
     function clearResults(markers) {
       for (var m in markers) {
@@ -85,11 +166,11 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
       markers = []
     
 
-    // hmmmmm end --------------
+//END marker
 
 
 
-    // google.maps.event.addDomListener(window, 'load', myMapx());
+    // google.maps.event.addDomListener(window, 'load', myMap());
 
     /*
     //add a marker
