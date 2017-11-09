@@ -1,0 +1,58 @@
+
+body {
+	background: #feffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #feffff 0%, #ddf1f9 35%, #a0d8ef 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #feffff 0%,#ddf1f9 35%,#a0d8ef 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #feffff 0%,#ddf1f9 35%,#a0d8ef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#a0d8ef',GradientType=0 ); /* IE6-9 */
+}
+
+#input-panel {
+	margin: 10% 0;
+}
+
+#input-panel .panel-heading {
+	background: #e7697c;
+    background: -moz-linear-gradient(top, #e7697c 0%, #861b10 100%);
+    background: -webkit-linear-gradient(top, #e7697c 0%,#861b10 100%);
+    background: linear-gradient(to bottom, #e7697c 0%,#861b10 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7697c', endColorstr='#861b10',GradientType=0 );
+    background-color: white;
+    color: #fff !important;
+    text-shadow: 1px 1px 2px #000;
+    box-shadow: 0px 0px 3px 1px #333;
+}
+
+#input-panel .row {
+	padding: 0 10% 0 10%;
+}
+
+#input-panel select {
+	color: #000;
+}
+
+#googleMap {
+	height: 300px;
+	width: 600px;
+	margin: 3% auto;
+	box-shadow: 0px 0px 15px 1px #fff;
+	text-shadow: none;
+	color: #000;
+}
+
+#gym-finder {
+	background: #4580f7; /* Old browsers */
+	background: -moz-linear-gradient(top, #4580f7 0%, #2c539e 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #4580f7 0%,#2c539e 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #4580f7 0%,#2c539e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4580f7', endColorstr='#2c539e',GradientType=0 ); /* IE6-9 */
+	color: #fff !important;
+    text-shadow: 1px 1px 2px #000;
+    box-shadow: 0px 0px 3px 1px #333
+}
+
+.col-md-8 #local-gym-finder {
+	margin: 5% 0 0 0;
+}
+
+

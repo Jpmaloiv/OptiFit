@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Gym Finder</title>
+
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  <script src="./assets/d3/d3.min.js"></script>
+
+
+</head>
+
+<body>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  
+  <script src="./assets/javascript/googlePlaces.js"></script>
+
+  <!-- <script>
+    var title = "Gym";
+    var queryURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/output?t=" + title +
+      "&key=AIzaSyAao05aFS0ZpcQVC6hwXe4BAnSowj6Qal8";
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function (response) {
+      console.log(response);
+      console.log(response.opennow);
+    });
+    // ---------------------------------------------------------
+  </script> -->
+
+
+<div class='container'>
+    <div class='col-md-4'>
+      <div class='col-md-12'>
+        <!-- BIOMETRICS PANEL -->
+        <div id='input-panel' class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">BIOMETRICS INPUT</h3>
+
+            <br>
+          
+   <!--   <div class='row'> -->
+              <form>
+                <div class="form-group row">
+                     <label for="age" class="col-sm-3 col-form-label">Age:</label>
+                     <div class="col-sm-9">
+                       <input name="age-input" id='age-input' type="text" class="form-control" aria-label="..." maxlength="2">
+                     </div>  
+                 </div>
+
+                <div class="form-group row">
+                    <label for="weight" class="col-sm-3 col-form-label">Weight:</label>
+                    <div class="col-sm-6">
+                       <input name="weight-input" id='weight-input' type="text" class="form-control" aria-label="..." maxlength="3">
+                    </div>
+                    <div class="col-sm-3">
+                       <select name="weightType" id="weightType">
+                         <option value="kg">Kg</option><option value="pounds">Pounds</option>
+                       </select>
+                    </div>   
+                </div>
+
+                <div class="form-group row">
+                    <label for="height" class="col-sm-3 col-form-label">Height:</label>
+                    <div class="col-sm-2">
+                       <select name="height-feet-input" id="height-feet-input">
+                        <option value="1">1'</option><option value="2">2'</option><option value="3">3'</option><option value="4">4'</option><option value="5">5'</option><option value="6">6'</option><option value="7">7'</option>
+                       </select>
+                    </div>
+                    <div class="col-sm-2">
+                       <select name="height-inches-input" id="height-inches-input">
+                            <option value="1">1"</option><option value="2">2"</option><option value="3">3"</option><option value="4">4"</option><option value="5">5"</option><option value="6">6"</option><option value="7">7"</option><option value="8">8"</option><option value="9">9"</option><option value="10">10"</option><option value="11">11"</option>
+                       </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                     <label for="cme" class="col-sm-3 col-form-label">Cms:</label>
+                     <div class="col-sm-9">
+                        <input type="text" name="heightCen" id="heightCen" size="4">
+                     </div>  
+                 </div>
+
+                <div class="form-group row">
+                     <label for="gender" class="col-sm-3 col-form-label">Gender:</label>
+                     <div class="col-sm-9">
+                        <div id="gender" class='btn-group btn-group-justified'>
+                          <label class="radio-inline"><input id="genderMale" type="radio" name="genderM" value="m">Male</label>
+                          <label class="radio-inline"><input id="genderFemale" type="radio" name="genderF" value="f">Female</label>
+                        </div>
+                     </div>  
+                 </div>
+
+
+                <div class="form-group row">
+                     <label for="activityLevel" class="col-sm-4 col-form-label">Activeness</label>
+                     <div class="col-sm-8">
+                          <select name="activityLevel" id="activityLevel">
+                              <option value="1">Sedentary</option><option value="2">Light Active</option><option value="3">Moderately Active</option><option value="4">Very Active</option><option value="5">Extra Active</option>
+                          </select>        
+                     </div>  
+                 </div>
+
+                <div class="form-group row">
+                     <label for="zipCode" class="col-sm-5 col-form-label">Zip Code:</label>
+                     <div class="col-sm-7">
+                          <input id='zip-input' type="text" class="form-control" aria-label="...">
+                     </div>  
+                 </div>
+                  <br><br><br>
+                 <div class="form-group row">  
+                     <div class="col-sm-10">
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                              <button Id='submit-button' type="button" class="btn btn-default">SUBMIT</button>
+                            </div>
+                        </div>
+                     </div>  
+                 </div>
+              </form>
+
+
+
+      <!--  </div> -->           
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class='col-md-8'>
+      <div class='row' id="local-gym-finder">
+
+        <div class="panel panel-default">
+          <div class='panel-heading'>
+            <h4>Local Gym Finder</h4>
+            <div id="googleMap"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class='row'>
+
+        <div class="panel panel-default">
+          <div class='panel-heading'>BMI</div>
+          <div id="BMIBody" class="panel-body">
+            Panel content
+          </div>
+        </div>
+      </div>
+
+      <div class='row'>
+
+        <div class="panel panel-default">
+          <div class='panel-heading'>Calories Needed</div>
+          <div id="caloriesBody" class="panel-body">
+            Panel content
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6fRM38TlLpJc9GHzTSXAf0KZ_PY0k_MQ&libraries=places&callback=myMapx"></script>
+<script src="./assets/javascript/logic.js"></script>
+
+</body>
+
+</html>

@@ -146,7 +146,6 @@ $("#age-input").keypress(function(){
 
 
 $("select").change(function(){
-
     heightConvert();
 });
 
@@ -174,8 +173,11 @@ function heightConvert()
     var heightFoot=parseInt($("#height-feet-input").val());
     var heightInch=parseInt($("#height-inches-input").val());
     var heightFinal =0 ;
+
     heightFinal=Math.round((heightFoot*30.48)+(heightInch*2.54));
+    
    $("#heightCen").val(heightFinal);
+   //console.log($("#heightCen").val());
 }
 
 
