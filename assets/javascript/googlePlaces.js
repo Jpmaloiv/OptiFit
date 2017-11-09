@@ -140,7 +140,7 @@ google.maps.event.addListener(map, 'rightclick', function(event) {
         var marker = new google.maps.Marker({
             map: map,
             position: place.geometry.location,
-            icon: './gym.png'
+            icon: '../icons/gym.png'
         });
 
 //BEGIN add info tag to marker if clicked
