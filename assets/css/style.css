@@ -8,7 +8,9 @@ body {
 }
 
 .container {
-	margin: 3% auto;
+	background: #fff;
+	padding: 3% 0;
+	box-shadow: 0px 0px 8px 0px #868282;
 }
 
 #input-panel .panel-heading {
@@ -29,6 +31,10 @@ body {
 
 #input-panel select, input {
 	color: #000;
+}
+
+.col-md-8 .row {
+	padding: 0 5%;
 }
 
 #BMIHeading, #caloriesHeading {
