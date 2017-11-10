@@ -92,12 +92,12 @@ if (this.age!='' && cm!='' && this.weight!='') {
             this.alcoholNeeded  = this.alcoholNeeded .toFixed(3);
 
             $("#caloriesBody").empty();
-
-            $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " lbs per day" +"</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " lbs per day" +"</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " lbs per day" + "</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " lbs per day" + "</div>");
+            drawCalPieChart(this)
+            // $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " lbs per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " lbs per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " lbs per day" + "</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " lbs per day" + "</div>");
     }
     else
     {
@@ -107,12 +107,12 @@ if (this.age!='' && cm!='' && this.weight!='') {
             this.alcoholNeeded  = this.alcoholNeeded .toFixed(3);
 
             $("#caloriesBody").empty();
-
-            $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " grms per day" +"</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " grms per day" +"</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " grms per day" + "</div>");
-            $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " grms per day" + "</div>");
+            drawCalPieChart(this)
+            // $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " grms per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " grms per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " grms per day" + "</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " grms per day" + "</div>");
 
     }
     
@@ -197,3 +197,38 @@ function convertCen(num)
         
 });
 
+
+
+
+
+
+google.charts.load("current", {packages:["corechart"]});
+//google.charts.setOnLoadCallback(drawCalPieChart);
+
+function drawCalPieChart(profile) {
+
+    var proteinNeeded = profile.proteinNeeded;
+    var fatNeeded = profile.fatNeeded;
+    var carbsNeeded = profile.carbsNeeded;
+    
+    console.log(proteinNeeded)
+    console.log(fatNeeded)
+    console.log(carbsNeeded)
+    
+    var data = google.visualization.arrayToDataTable([
+      ['Caloric Breakdown', 'Suggested Daily Intake'],
+      ['Protein',     proteinNeeded],
+      ['Carbs',       carbsNeeded], 
+    //   ['Fats',        fatNeeded],
+    ]);
+
+    console.log(data)
+  
+    var options = {
+      title: 'My Daily Activities',
+      is3D: true,
+    };
+  
+    var chart = new google.visualization.PieChart(document.getElementById('caloriesBody'));
+    chart.draw(data, options);
+  }
