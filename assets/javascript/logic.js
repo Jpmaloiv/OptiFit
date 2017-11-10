@@ -22,6 +22,7 @@ calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,a
 
 
 calculateBMI: function(height, weight) {
+
    var BMI = (weight / (height * height)) * 703
    var bmiVal = Math.round(BMI * Math.pow(10, 2)) / Math.pow(10, 2);
    if  (bmiVal < 18.5){
@@ -49,9 +50,13 @@ this.age = parseInt($("#age-input").val().trim());
 this.heightFt = parseInt($("#height-feet-input").val().trim());
 this.heightIn = parseInt($("#height-inches-input").val().trim());
 this.height   = parseFloat( this.heightFt * 12) + parseFloat(this.heightIn);
-this.weight = parseInt($("#weight-input").val().trim());
 this.weightType = $("#weightType").val().trim();
+this.weight = parseInt($("#weight-input").val().trim());
+if ($("#weightType").val().trim() ==="kg"){
+   this.weight = parseInt($("#weight-input").val().trim()) * 2.2 ;   
+}
 var cm = $("#heightCen").val().trim();
+
 //Calling BMI calculate function
 this.BMI = this.calculateBMI(this.height, this.weight);
 
@@ -262,6 +267,25 @@ calcAlc: function(cal){
 
 
 $(document).ready(function() {
+
+$("#weight-input").keyup(function(){
+
+    var number = $("#weight-input").val();
+    if(!number.match(/^[0-9\.]+$/) && number !=""){
+        number = number.substring(0,number.length-1);
+        $("#weight-input").val(number);
+    }
+});
+
+
+$("#heightCen").keyup(function(){
+
+    var number = $("#heightCen").val();
+    if(!number.match(/^[0-9\.]+$/) && number !=""){
+        number = number.substring(0,number.length-1);
+        $("#heightCen").val(number);
+    }
+});
                      
 
 $("#submit-button").on("click", function(e) {
@@ -324,6 +348,7 @@ function convertCen(num)
     }
     $("#height-inches-input").val(inch);
 }
+
 
         
 });
