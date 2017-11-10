@@ -215,17 +215,34 @@ function drawCalPieChart(profile) {
     console.log(fatNeeded)
     console.log(carbsNeeded)
     
+    // var data = new google.visualization.DataTable();
+    
+    // data.addColumn('string','macronutrient');
+    // data.addColumn('number','amount');
+    // data.addRows([['PROTEIN',proteinNeeded],['CARBS',carbsNeeded]]x``);
+    // // data.setCell(0,0,'protein needed')
+    // // data.setCell(0,1,proteinNeeded)
+    // //   ['Caloric Breakdown', 'Suggested Daily Intake'],
+    // //   ['Protein',     proteinNeeded],
+    // //['Carbs',       carbsNeeded]
+    // //   ['Fats',        fatNeeded],
+    // // ]);
+
+
+
+    //data.addRow(['carbs',carbsNeeded]);
+
     var data = google.visualization.arrayToDataTable([
-      ['Caloric Breakdown', 'Suggested Daily Intake'],
-      ['Protein',     proteinNeeded],
-      ['Carbs',       carbsNeeded], 
-    //   ['Fats',        fatNeeded],
-    ]);
+        ['Task', 'Hours per Day'],
+        ['Protein',     Number(proteinNeeded)],
+        ['Fat',      Number(fatNeeded)],
+        ['Carbohydrates',  Number(carbsNeeded)]
+      ]);
 
     console.log(data)
   
     var options = {
-      title: 'My Daily Activities',
+      title: 'Caloric Breakdown',
       is3D: true,
     };
   
