@@ -100,6 +100,40 @@ if (this.age!='' && cm!='' && this.weight!='') {
     $("#caloriesHeading").text("Calories Needed : " + this.caloriesNeeded + " Kcal/day");
 
     if (this.weightType==="pounds") {
+<<<<<<< HEAD
+            this.fatNeeded = this.fatNeeded * 0.0022 ;
+            this.proteinNeeded = this.proteinNeeded * 0.0022 ;
+            this.carbsNeeded = this.carbsNeeded * 0.0022 ;
+            this.alcoholNeeded = this.alcoholNeeded * 0.0022 ;
+            this.fatNeeded=this.fatNeeded.toFixed(3);
+            this.proteinNeeded = this.proteinNeeded.toFixed(3);
+            this.carbsNeeded = this.carbsNeeded.toFixed(3);
+            this.alcoholNeeded  = this.alcoholNeeded .toFixed(3);
+
+            $("#caloriesBody").empty();
+            drawCalPieChart(this)
+            // $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " lbs per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " lbs per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " lbs per day" + "</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " lbs per day" + "</div>");
+    }
+    else
+    {
+            this.fatNeeded=this.fatNeeded.toFixed(3);
+            this.proteinNeeded = this.proteinNeeded.toFixed(3);
+            this.carbsNeeded = this.carbsNeeded.toFixed(3);
+            this.alcoholNeeded  = this.alcoholNeeded .toFixed(3);
+
+            $("#caloriesBody").empty();
+            drawCalPieChart(this)
+            // $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " grms per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " grms per day" +"</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " grms per day" + "</div>");
+            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " grms per day" + "</div>");
+
+=======
 
             var poundsDay = userProfile.onePound/7;
 
@@ -197,6 +231,7 @@ if (this.age!='' && cm!='' && this.weight!='') {
             $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTableKg[i-1].alc+ " grms/day" ;
 
         }
+>>>>>>> d249f1bd39de1a49262a14f73779a477e4ec2101
     }
     
 }
@@ -293,3 +328,55 @@ function convertCen(num)
         
 });
 
+
+
+
+
+
+google.charts.load("current", {packages:["corechart"]});
+//google.charts.setOnLoadCallback(drawCalPieChart);
+
+function drawCalPieChart(profile) {
+
+    var proteinNeeded = profile.proteinNeeded;
+    var fatNeeded = profile.fatNeeded;
+    var carbsNeeded = profile.carbsNeeded;
+    
+    console.log(proteinNeeded)
+    console.log(fatNeeded)
+    console.log(carbsNeeded)
+    
+    // var data = new google.visualization.DataTable();
+    
+    // data.addColumn('string','macronutrient');
+    // data.addColumn('number','amount');
+    // data.addRows([['PROTEIN',proteinNeeded],['CARBS',carbsNeeded]]x``);
+    // // data.setCell(0,0,'protein needed')
+    // // data.setCell(0,1,proteinNeeded)
+    // //   ['Caloric Breakdown', 'Suggested Daily Intake'],
+    // //   ['Protein',     proteinNeeded],
+    // //['Carbs',       carbsNeeded]
+    // //   ['Fats',        fatNeeded],
+    // // ]);
+
+
+
+    //data.addRow(['carbs',carbsNeeded]);
+
+    var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Protein',     Number(proteinNeeded)],
+        ['Fat',      Number(fatNeeded)],
+        ['Carbohydrates',  Number(carbsNeeded)]
+      ]);
+
+    console.log(data)
+  
+    var options = {
+      title: 'Caloric Breakdown',
+      is3D: true,
+    };
+  
+    var chart = new google.visualization.PieChart(document.getElementById('caloriesBody'));
+    chart.draw(data, options);
+  }
