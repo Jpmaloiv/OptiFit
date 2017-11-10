@@ -11,9 +11,15 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
   <script src="./assets/d3/d3.min.js"></script>
+<<<<<<< HEAD
   <link rel="stylesheet" href="./assets/c3/c3.css">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   
+=======
+  
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+>>>>>>> d249f1bd39de1a49262a14f73779a477e4ec2101
 
 
 </head>
@@ -23,20 +29,6 @@
 
   
   <script src="./assets/javascript/googlePlaces.js"></script>
-
-  <!-- <script>
-    var title = "Gym";
-    var queryURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/output?t=" + title +
-      "&key=AIzaSyAao05aFS0ZpcQVC6hwXe4BAnSowj6Qal8";
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).done(function (response) {
-      console.log(response);
-      console.log(response.opennow);
-    });
-    // ---------------------------------------------------------
-  </script> -->
 
 
 <div class='container'>
@@ -49,7 +41,6 @@
 
             <br>
           
-   <!--   <div class='row'> -->
               <form>
                 <div class="form-group row">
                      <label for="age" class="col-sm-3 col-form-label">Age:</label>
@@ -58,14 +49,14 @@
                      </div>  
                  </div>
 
-                <div class="form-group row">
+                <div class="form-group row" id="weight">
                     <label for="weight" class="col-sm-3 col-form-label">Weight:</label>
                     <div class="col-sm-6">
-                       <input name="weight-input" id='weight-input' type="text" class="form-control" aria-label="..." maxlength="3">
+                       <input name="weight-input" id='weight-input' type="text" class="form-control" aria-label="..." maxlength="5">
                     </div>
                     <div class="col-sm-3">
                        <select name="weightType" id="weightType">
-                         <option value="kg">Kg</option><option value="pounds">Pounds</option>
+                         <option value="pounds">Pounds</option><option value="kg">Kg</option>
                        </select>
                     </div>   
                 </div>
@@ -87,7 +78,7 @@
                 <div class="form-group row">
                      <label for="cme" class="col-sm-3 col-form-label">Cms:</label>
                      <div class="col-sm-9">
-                        <input type="text" name="heightCen" id="heightCen" size="4">
+                        <input type="text" name="heightCen" id="heightCen" size="4" maxlength="5">
                      </div>  
                  </div>
 
@@ -118,6 +109,7 @@
                      </div>  
                  </div>
                   <br><br><br>
+
                  <div class="form-group row">  
                      <div class="col-sm-10">
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -127,11 +119,7 @@
                         </div>
                      </div>  
                  </div>
-              </form>
-
-
-
-      <!--  </div> -->           
+              </form>         
           </div>
         </div>
       </div>
@@ -139,12 +127,13 @@
 
 
     <div class='col-md-8'>
-      <div class='row' id="local-gym-finder">
+
+      <div class='row'>
 
         <div class="panel panel-default">
-          <div class='panel-heading'>
-            <h4>Local Gym Finder</h4>
-            <div id="googleMap"></div>
+          <div id="BMIHeading" class='panel-heading'>BMI</div>
+          <div id="BMIBody" class="panel-body">
+            Your BMI is : 
           </div>
         </div>
       </div>
@@ -152,19 +141,86 @@
       <div class='row'>
 
         <div class="panel panel-default">
+<<<<<<< HEAD
           <div class='panel-heading'>BMI</div>
           <div id="BMIBody"  class="panel-body">
             Panel content
+=======
+          <div id="caloriesHeading" class='panel-heading'>Calories Needed</div>
+          <div id="caloriesBody" class="panel-body">
+          <table class="table" id="caloriesTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Fat</th>
+                <th>Protein</th>
+                <th>Carbs</th>
+                <th>Alcohol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="info">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>      
+              <tr class="success">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="active">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="warning">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="danger">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>    
+
+
+>>>>>>> d249f1bd39de1a49262a14f73779a477e4ec2101
           </div>
         </div>
       </div>
 
-      <div class='row'>
+      <div class='row' id="local-gym-finder">
 
         <div class="panel panel-default">
+<<<<<<< HEAD
           <div class='panel-heading'>Calories Needed</div>
           <div id="caloriesBody" style='height:600px' class="panel-body">
             Panel content
+=======
+          <div class='panel-heading'>
+            <h4>Local Gym Finder</h4>
+              <div id="gym-search">
+              
+                  <label for="zipCode" class="col-sm-5 col-form-label">Zip Code:</label>
+                  <input id='zip-input' type="text" class="form-control" aria-label="...">
+                
+              </div>
+            <div id="googleMap"></div>
+>>>>>>> d249f1bd39de1a49262a14f73779a477e4ec2101
           </div>
         </div>
       </div>
