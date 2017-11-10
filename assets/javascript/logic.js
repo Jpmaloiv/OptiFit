@@ -19,7 +19,7 @@ onePound : 3500,
 oneKg : 7700,
 calTable  : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 2 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 2 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
 calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 0.5 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 0.5 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
-queryURL : "",
+
 
 
 calculateBMI: function(height, weight) {
@@ -189,7 +189,7 @@ displayResultsGrms: function(){
         
     // fill table columns with values
 
-    for (i=1; i <5;i++){
+    for (i=1; i <6;i++){
 
         $("#caloriesTable").children().children()[i].children[0].innerHTML = this.calTableKg[i-1].desc + this.calTableKg[i-1].cal + " Kcal/day" ;
         $("#caloriesTable").children().children()[i].children[1].innerHTML = this.calTableKg[i-1].fat + " g/day" ;
@@ -240,7 +240,7 @@ displayResultsPounds: function(){
             
         // fill table columns with values
 
-        for (i=1; i <5;i++){
+        for (i=1; i <6;i++){
 
             $("#caloriesTable").children().children()[i].children[0].innerHTML = this.calTable[i-1].desc + this.calTable[i-1].cal + " Kcal/day" ;
             $("#caloriesTable").children().children()[i].children[1].innerHTML = this.calTable[i-1].fat + " lbs/day" ;
@@ -292,12 +292,16 @@ $("#age-input").keypress(function(){
 });
 
 
-$("select").change(function(){
+$("#height-inches-input").change(function(){
+    heightConvert();
+});
+
+$("#height-feet-input").change(function(){
     heightConvert();
 });
 
 $("#heightCen").change(function(){
-    convertCen($("#heightCen").val());
+    convertCen($("#heightCen").val());    
 });
 
 $("#resultType").change(function(){
@@ -353,6 +357,43 @@ function convertCen(num)
 }
 
 
+$('#foodName').keyup(function (e) {
+    e.preventDefault();
+    if (e.keyCode === 13) {
+       displayFoodResults();
+    }
+});
+
+function displayFoodResults(){
+
+var q1a = "http://api.nutritionix.com/v1_1/search/"
+var q1b = "?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Citem_id%2Cbrand_id%2Cnf_calories%2Cnf_protein%2Citem_type";
+//var q2 ="https://trackapi.nutritionix.com/v2/natural/exercise/";
+//var qfood ="https://trackapi.nutritionix.com/v2/search/item?nix_item_id=c640834927576f2c7fe01c19"
+var qItem = "http://api.nutritionix.com/v1/item/c640834927576f2c7fe01c19?";
+var appidkey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
+
+$.ajax({
+        url: q1a+ $("#foodName").val().trim()+q1b+appidkey,
+        //url : qItem+appidkey,
+        method: "GET"
+      })
+      // after the https is done do something
+      .done(function(response) {
+
+        console.log(response.hits[0].fields.item_id);
+        console.log(response);
+        //var itemId = [];
+        //for (f=0; f < 12; f++){
+          //  itemId.push(repsonse[f].itemId);
+       // }
+
+    });
         
+};
+
+//$(document).on("click", "#testBtn", function(e){
+
+
 });
 
