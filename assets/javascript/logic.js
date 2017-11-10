@@ -9,6 +9,7 @@ age    :  0,
 gender :  '',
 activityLevel : '',
 BMI : 0,
+BMIDesc:"",
 fatNeeded :0,
 caloriesNeeded : 0,
 proteinNeeded : 0,
@@ -21,9 +22,22 @@ calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,a
 
 
 calculateBMI: function(height, weight) {
-   BMI = (weight / (height * height)) * 703
-	
-return Math.round(BMI * Math.pow(10, 2)) / Math.pow(10, 2);
+   var BMI = (weight / (height * height)) * 703
+   var bmiVal = Math.round(BMI * Math.pow(10, 2)) / Math.pow(10, 2);
+   if  (bmiVal < 18.5){
+      this.BMIDesc = "Underweight";
+   }
+   else if (bmiVal < 24.9){
+      this.BMIDesc = "Normal";
+   }
+   else if (bmiVal < 30){
+      this.BMIDesc = "Overweight";
+   }
+   else if (bmiVal > 30){
+      this.BMIDesc = "Obesse";
+   }
+
+    return bmiVal;
 },
 
 
@@ -219,6 +233,8 @@ $("#submit-button").on("click", function(e) {
         e.preventDefault(); 
         userProfile.calcCal();
         $("#BMIBody").text('Your BMI is '+ userProfile.BMI);
+        $("#BMIBody").append("<div>" +"Your are: " + userProfile.BMIDesc + "</div>");
+
 });
 
 $("#age-input").keypress(function(){
