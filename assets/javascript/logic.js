@@ -23,6 +23,10 @@ calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,a
 
 calculateBMI: function(height, weight) {
 
+
+   if ($("#weightType").val().trim() ==="kg"){
+        weight = weight * 2.2046 ;   
+    }
    var BMI = (weight / (height * height)) * 703
    var bmiVal = Math.round(BMI * Math.pow(10, 2)) / Math.pow(10, 2);
    if  (bmiVal < 18.5){
@@ -52,9 +56,7 @@ this.heightIn = parseInt($("#height-inches-input").val().trim());
 this.height   = parseFloat( this.heightFt * 12) + parseFloat(this.heightIn);
 this.weightType = $("#weightType").val().trim();
 this.weight = parseInt($("#weight-input").val().trim());
-if ($("#weightType").val().trim() ==="kg"){
-   this.weight = parseInt($("#weight-input").val().trim()) * 2.2 ;   
-}
+
 var cm = $("#heightCen").val().trim();
 
 //Calling BMI calculate function
@@ -104,41 +106,101 @@ if (this.age!='' && cm!='' && this.weight!='') {
 
     $("#caloriesHeading").text("Calories Needed : " + this.caloriesNeeded + " Kcal/day");
 
-    if (this.weightType==="pounds") {
-<<<<<<< HEAD
-            this.fatNeeded = this.fatNeeded * 0.0022 ;
-            this.proteinNeeded = this.proteinNeeded * 0.0022 ;
-            this.carbsNeeded = this.carbsNeeded * 0.0022 ;
-            this.alcoholNeeded = this.alcoholNeeded * 0.0022 ;
-            this.fatNeeded=this.fatNeeded.toFixed(3);
-            this.proteinNeeded = this.proteinNeeded.toFixed(3);
-            this.carbsNeeded = this.carbsNeeded.toFixed(3);
-            this.alcoholNeeded  = this.alcoholNeeded .toFixed(3);
+    if ( ($("#resultType").val()==="g") && (userProfile.caloriesNeeded > 0) ){
 
-            $("#caloriesBody").empty();
-            drawCalPieChart(this)
-            // $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " lbs per day" +"</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " lbs per day" +"</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " lbs per day" + "</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " lbs per day" + "</div>");
+        userProfile.displayResultsGrms();
     }
-    else
+    else if (userProfile.caloriesNeeded > 0)
     {
-            this.fatNeeded=this.fatNeeded.toFixed(3);
-            this.proteinNeeded = this.proteinNeeded.toFixed(3);
-            this.carbsNeeded = this.carbsNeeded.toFixed(3);
-            this.alcoholNeeded  = this.alcoholNeeded .toFixed(3);
+        userProfile.displayResultsPounds();
+    }
 
-            $("#caloriesBody").empty();
-            drawCalPieChart(this)
-            // $("#caloriesBody").append("<div>"+ "Daily Calories Needed : " + this.caloriesNeeded+ " Kcallories" +"</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Fat Needed : " + this.fatNeeded+ " grms per day" +"</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Protein Needed : " + this.proteinNeeded+ " grms per day" +"</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.carbsNeeded+ " grms per day" + "</div>");
-            // $("#caloriesBody").append("<div>"+ "Daily Carbs Needed : " + this.alcoholNeeded+ " grms per day" + "</div>");
+   // if (this.weightType==="pounds") {
 
-=======
+     //   this.displayResultsPounds();
+
+    //}
+    //else
+    //{    
+
+      //  this.displayResultsGrms();      
+    //} 
+}
+else
+{
+alert("Please fill your details properly!");
+}
+
+}, // end of calcCal function
+
+calcFat: function(cal){
+
+    return Math.floor((cal*0.25)/9);
+},
+
+calcPrCrb: function(cal){
+
+    return Math.floor((cal*0.25)/4);
+    
+},
+
+calcAlc: function(cal){
+
+    return Math.floor((cal*0.25)/7);
+},
+
+displayResultsGrms: function(){
+
+    var kgsDay = userProfile.oneKg/7;
+
+    // fill the array with new calories needed in order to loose weight
+        for (j=0; j <3; j++){
+        
+           this.calTableKg[j].cal = Math.floor(this.caloriesNeeded - (kgsDay*0.5*j));
+
+           this.calTableKg[j].fat = this.calcFat(this.calTableKg[j].cal);
+           this.calTableKg[j].pr = this.calcPrCrb(this.calTableKg[j].cal);
+           this.calTableKg[j].crb = this.calcPrCrb(this.calTableKg[j].cal);
+           this.calTableKg[j].alc = this.calcAlc(this.calTableKg[j].cal);
+
+           this.calTableKg[j].fat =  this.calTableKg[j].fat.toFixed(3);
+           this.calTableKg[j].pr = this.calTableKg[j].pr.toFixed(3);
+           this.calTableKg[j].crb = this.calTableKg[j].crb.toFixed(3);
+           this.calTableKg[j].alc = this.calTableKg[j].alc.toFixed(3);
+        }
+
+        // fill the array with new calories needed in order to gain weight
+
+        for (h=1; h <3; h++){
+        
+           this.calTableKg[h+2].cal = Math.floor(this.caloriesNeeded + (kgsDay*0.5*h));
+           this.calTableKg[h+2].fat = this.calcFat(this.calTableKg[h+2].cal);
+           this.calTableKg[h+2].pr = this.calcPrCrb(this.calTableKg[h+2].cal);
+           this.calTableKg[h+2].crb = this.calcPrCrb(this.calTableKg[h+2].cal);
+           this.calTableKg[h+2].alc = this.calcAlc(this.calTableKg[h+2].cal);
+
+           this.calTableKg[h+2].fat =  this.calTableKg[h+2].fat.toFixed(3);
+           this.calTableKg[h+2].pr = this.calTableKg[h+2].pr.toFixed(3);
+           this.calTableKg[h+2].crb = this.calTableKg[h+2].crb.toFixed(3);
+           this.calTableKg[h+2].alc = this.calTableKg[h+2].alc.toFixed(3);
+        }
+
+        
+    // fill table columns with values
+
+    for (i=1; i <6;i++){
+
+        $("#caloriesTable").children().children()[i].children[0].innerHTML = this.calTableKg[i-1].desc + this.calTableKg[i-1].cal + " Kcal/day" ;
+        $("#caloriesTable").children().children()[i].children[1].innerHTML = this.calTableKg[i-1].fat + " grms/day" ;
+        $("#caloriesTable").children().children()[i].children[2].innerHTML = this.calTableKg[i-1].pr + " grms/day";
+        $("#caloriesTable").children().children()[i].children[3].innerHTML = this.calTableKg[i-1].crb+ " grms/day";
+        $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTableKg[i-1].alc+ " grms/day" ;
+
+    }
+    
+}, // end of displayResultsGrams
+
+displayResultsPounds: function(){
 
             var poundsDay = userProfile.onePound/7;
 
@@ -185,83 +247,10 @@ if (this.age!='' && cm!='' && this.weight!='') {
             $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTable[i-1].alc+ " lbs/day" ;
 
         }
-    }
-    else
-    {    
-            var kgsDay = userProfile.oneKg/7;
 
-            // fill the array with new calories needed in order to loose weight
-            for (j=0; j <3; j++){
-            
-               this.calTableKg[j].cal = Math.floor(this.caloriesNeeded - (kgsDay*0.5*j));
-               console.log(this.caloriesNeeded);
-               console.log(kgsDay);
-               console.log(this.calTableKg[j].cal);
-               this.calTableKg[j].fat = this.calcFat(this.calTableKg[j].cal);
-               this.calTableKg[j].pr = this.calcPrCrb(this.calTableKg[j].cal);
-               this.calTableKg[j].crb = this.calcPrCrb(this.calTableKg[j].cal);
-               this.calTableKg[j].alc = this.calcAlc(this.calTableKg[j].cal);
 
-               this.calTableKg[j].fat =  this.calTableKg[j].fat.toFixed(3);
-               this.calTableKg[j].pr = this.calTableKg[j].pr.toFixed(3);
-               this.calTableKg[j].crb = this.calTableKg[j].crb.toFixed(3);
-               this.calTableKg[j].alc = this.calTableKg[j].alc.toFixed(3);
-            }
 
-            // fill the array with new calories needed in order to gain weight
-
-            for (h=1; h <3; h++){
-            
-               this.calTableKg[h+2].cal = Math.floor(this.caloriesNeeded + (kgsDay*0.5*h));
-               this.calTableKg[h+2].fat = this.calcFat(this.calTableKg[h+2].cal);
-               this.calTableKg[h+2].pr = this.calcPrCrb(this.calTableKg[h+2].cal);
-               this.calTableKg[h+2].crb = this.calcPrCrb(this.calTableKg[h+2].cal);
-               this.calTableKg[h+2].alc = this.calcAlc(this.calTableKg[h+2].cal);
-
-               this.calTableKg[h+2].fat =  this.calTableKg[h+2].fat.toFixed(3);
-               this.calTableKg[h+2].pr = this.calTableKg[h+2].pr.toFixed(3);
-               this.calTableKg[h+2].crb = this.calTableKg[h+2].crb.toFixed(3);
-               this.calTableKg[h+2].alc = this.calTableKg[h+2].alc.toFixed(3);
-            }
-
-            
-        // fill table columns with values
-
-        for (i=1; i <6;i++){
-
-            $("#caloriesTable").children().children()[i].children[0].innerHTML = this.calTableKg[i-1].desc + this.calTableKg[i-1].cal + " Kcal/day" ;
-            $("#caloriesTable").children().children()[i].children[1].innerHTML = this.calTableKg[i-1].fat + " grms/day" ;
-            $("#caloriesTable").children().children()[i].children[2].innerHTML = this.calTableKg[i-1].pr + " grms/day";
-            $("#caloriesTable").children().children()[i].children[3].innerHTML = this.calTableKg[i-1].crb+ " grms/day";
-            $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTableKg[i-1].alc+ " grms/day" ;
-
-        }
->>>>>>> d249f1bd39de1a49262a14f73779a477e4ec2101
-    }
-    
-}
-else
-{
-alert("Please fill your details properly!");
-}
-
-}, // end of calcCal function
-
-calcFat: function(cal){
-
-    return Math.floor((cal*0.25)/9);
-},
-
-calcPrCrb: function(cal){
-
-    return Math.floor((cal*0.25)/4);
-    
-},
-
-calcAlc: function(cal){
-
-    return Math.floor((cal*0.25)/7);
-}
+} // end of displayResultsPounds
 
 } // userProfile object
 
@@ -309,6 +298,18 @@ $("#heightCen").change(function(){
     convertCen($("#heightCen").val());
 });
 
+$("#resultType").change(function(){
+    if ( ($("#resultType").val()==="g") && (userProfile.caloriesNeeded > 0) ){
+
+        userProfile.displayResultsGrms();
+    }
+    else if (userProfile.caloriesNeeded > 0)
+    {
+        userProfile.displayResultsPounds();
+    }
+
+});
+
 
 //validating if the age is a valid number
 function validateAge(age){
@@ -353,55 +354,3 @@ function convertCen(num)
         
 });
 
-
-
-
-
-
-google.charts.load("current", {packages:["corechart"]});
-//google.charts.setOnLoadCallback(drawCalPieChart);
-
-function drawCalPieChart(profile) {
-
-    var proteinNeeded = profile.proteinNeeded;
-    var fatNeeded = profile.fatNeeded;
-    var carbsNeeded = profile.carbsNeeded;
-    
-    console.log(proteinNeeded)
-    console.log(fatNeeded)
-    console.log(carbsNeeded)
-    
-    // var data = new google.visualization.DataTable();
-    
-    // data.addColumn('string','macronutrient');
-    // data.addColumn('number','amount');
-    // data.addRows([['PROTEIN',proteinNeeded],['CARBS',carbsNeeded]]x``);
-    // // data.setCell(0,0,'protein needed')
-    // // data.setCell(0,1,proteinNeeded)
-    // //   ['Caloric Breakdown', 'Suggested Daily Intake'],
-    // //   ['Protein',     proteinNeeded],
-    // //['Carbs',       carbsNeeded]
-    // //   ['Fats',        fatNeeded],
-    // // ]);
-
-
-
-    //data.addRow(['carbs',carbsNeeded]);
-
-    var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Protein',     Number(proteinNeeded)],
-        ['Fat',      Number(fatNeeded)],
-        ['Carbohydrates',  Number(carbsNeeded)]
-      ]);
-
-    console.log(data)
-  
-    var options = {
-      title: 'Caloric Breakdown',
-      is3D: true,
-    };
-  
-    var chart = new google.visualization.PieChart(document.getElementById('caloriesBody'));
-    chart.draw(data, options);
-  }
