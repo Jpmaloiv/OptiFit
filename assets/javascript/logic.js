@@ -284,7 +284,6 @@ $("#heightCen").keyup(function(){
 $("#submit-button").on("click", function(e) {
         e.preventDefault(); 
         userProfile.calcCal();
-        drawBarGraph();
         $("#BMIBody").text('Your BMI is '+ userProfile.BMI);
         $("#BMIBody").append("<div>" +"Your are: " + userProfile.BMIDesc + "</div>");
 
@@ -374,7 +373,8 @@ var q1b = "?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name
 //var q2 ="https://trackapi.nutritionix.com/v2/natural/exercise/";
 //var qfood ="https://trackapi.nutritionix.com/v2/search/item?nix_item_id=c640834927576f2c7fe01c19"
 
-var appIdKey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
+//var appIdKey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
+var appIdKey = "&appId=070559ff&appKey=f6d2e734ca5caf03d4507c0fe374dab8";
 //var itemIdArr = [];
 
 $.ajax({
@@ -417,7 +417,7 @@ for (k=0; k< 6 ;k++){ //userProfile.itemIdArr.length
 
         //console.log(response2);
         //console.log(response2);
-      if ( !(response2.brand_name === null) && !(response2.nf_calories === null) && !(response2.nf_total_fat === null) && !(response2.nf_protein === null)) {
+      if ( !(response2.brand_name === null) && !(response2.nf_calories === null) && (parseInt(response2.nf_calories) > 0) && !(response2.nf_total_fat === null) && (parseInt(response2.nf_total_fat) > 0) && !(response2.nf_protein === null)) {
       
        $("#foodTableBody").append("<tr><td>" + response2.brand_name + "</td><td>" + response2.nf_calories + "</td><td>" +
        response2.nf_total_fat + "</td><td>" + response2.nf_protein + "</td><td>" + response2.nf_total_carbohydrate + "</td></tr>");
