@@ -1,156 +1,4 @@
 
-var userProfile = {
-weight : 0,
-weightType: '',
-heightFt : 0,
-heightIn : 0,
-height : 0 ,
-age    :  0,
-gender :  '',
-activityLevel : '',
-BMI : 0,
-BMIDesc:"",
-fatNeeded :0,
-caloriesNeeded : 0,
-proteinNeeded : 0,
-carbsNeeded: 0,
-alcoholNeeded:0,
-onePound : 3500,
-oneKg : 7700,
-calTable  : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 2 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 2 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
-calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 0.5 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 0.5 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
-itemIdArr : [],
-itemDetails: [],
-
-
-
-calculateBMI: function(height, weight) {
-
-
-   if ($("#weightType").val().trim() ==="kg"){
-        weight = weight * 2.2046 ;   
-    }
-   var BMI = (weight / (height * height)) * 703
-   var bmiVal = Math.round(BMI * Math.pow(10, 2)) / Math.pow(10, 2);
-   if  (bmiVal < 18.5){
-      this.BMIDesc = "Underweight";
-   }
-   else if (bmiVal < 24.9){
-      this.BMIDesc = "Normal";
-   }
-   else if (bmiVal < 30){
-      this.BMIDesc = "Overweight";
-   }
-   else if (bmiVal > 30){
-      this.BMIDesc = "Obesse";
-   }
-
-    return bmiVal;
-},
-
-
-calcCal: function(){
-
-var fd =0;
-
-this.age = parseInt($("#age-input").val().trim());
-this.heightFt = parseInt($("#height-feet-input").val().trim());
-this.heightIn = parseInt($("#height-inches-input").val().trim());
-this.height   = parseFloat( this.heightFt * 12) + parseFloat(this.heightIn);
-this.weightType = $("#weightType").val().trim();
-this.weight = parseInt($("#weight-input").val().trim());
-
-var cm = $("#heightCen").val().trim();
-
-//Calling BMI calculate function
-this.BMI = this.calculateBMI(this.height, this.weight);
-
-
-if (this.age!='' && cm!='' && this.weight!='') {
-    if (this.weightType==="pounds"){
-        this.weight=parseInt(this.weight);
-        this.weight=Math.round(this.weight/2.2046);
-    }
-
-    this.activityLevel= $("#activityLevel").val();
-    if (document.getElementById('genderMale').checked)
-    {
-        
-        fd=(10*this.weight)+(6.25*cm)-(5*this.age)+5;
-    }
-    else if (document.getElementById('genderFemale').checked)
-    {
-        fd=(10*this.weight)+(6.25*cm)-(5*this.age)-161;
-    }
-    else{
-        alert("Please select your gender");
-    }
-
-    switch(this.activityLevel)
-    {
-    case "1":
-    this.caloriesNeeded=fd*1.2;
-    break;
-    case "2":
-    this.caloriesNeeded=fd*1.375
-    break;
-    case "3":
-    this.caloriesNeeded=fd*1.53;
-    break;
-    case "4":
-    this.caloriesNeeded=fd*1.725;
-    break;
-    case "5":
-    this.caloriesNeeded=fd*1.9;
-    break;
-    }
-    this.caloriesNeeded=Math.floor(this.caloriesNeeded);
-    //display caloires intake in the  calories header
-    $("#caloriesHeading").text("Calories Needed : " + this.caloriesNeeded + " Kcal/day");
-
-    //this.fatNeeded = this.calcFat(this.caloriesNeeded);
-    //this.proteinNeeded = this.calcPrCrb(this.caloriesNeeded);
-   // this.carbsNeeded = this.calcPrCrb(this.caloriesNeeded);
-   // this.alcoholNeeded = this.calcAlc(this.caloriesNeeded);
-   // if ($("#weightType").val()==="pounds") {
-   //     this.handlePoundWeight
-   // }
-   
-
-    if ( ($("#resultType").val()==="g") && (userProfile.caloriesNeeded > 0) ){
-
-        userProfile.displayResultsGrms();
-    }
-    else if (userProfile.caloriesNeeded > 0)
-    {
-        userProfile.displayResultsPounds();
-    }
-}
-else
-{
-alert("Please fill your details properly!");
-}
-
-}, // end of calcCal function
-
-calcFat: function(cal){
-
-    return Math.floor((cal*0.333)/9);
-
-},
-
-calcPrCrb: function(cal){
-
-    return Math.floor((cal*0.333)/4);
-    
-},
-
-//calcAlc: function(cal){
-
-
- //   return Math.floor((cal*0.333)/7);
-//},
-
 displayResultsGrms: function(){
 
     var kgsDay = userProfile.oneKg/7;
@@ -166,9 +14,9 @@ displayResultsGrms: function(){
            this.calTableKg[j].crb = this.calcPrCrb(this.calTableKg[j].cal);
           // this.calTableKg[j].alc = this.calcAlc(this.calTableKg[j].cal);
 
-           this.calTableKg[j].fat =  this.calTableKg[j].fat.toFixed(3);
-           this.calTableKg[j].pr = this.calTableKg[j].pr.toFixed(3);
-           this.calTableKg[j].crb = this.calTableKg[j].crb.toFixed(3);
+          // this.calTableKg[j].fat =  this.calTableKg[j].fat.toFixed(3);
+          // this.calTableKg[j].pr = this.calTableKg[j].pr.toFixed(3);
+          // this.calTableKg[j].crb = this.calTableKg[j].crb.toFixed(3);
            //this.calTableKg[j].alc = this.calTableKg[j].alc.toFixed(3);
         }
 
@@ -182,9 +30,9 @@ displayResultsGrms: function(){
            this.calTableKg[h+2].crb = this.calcPrCrb(this.calTableKg[h+2].cal);
          //  this.calTableKg[h+2].alc = this.calcAlc(this.calTableKg[h+2].cal);
 
-           this.calTableKg[h+2].fat =  this.calTableKg[h+2].fat.toFixed(3);
-           this.calTableKg[h+2].pr = this.calTableKg[h+2].pr.toFixed(3);
-           this.calTableKg[h+2].crb = this.calTableKg[h+2].crb.toFixed(3);
+           //this.calTableKg[h+2].fat =  this.calTableKg[h+2].fat.toFixed(3);
+          // this.calTableKg[h+2].pr = this.calTableKg[h+2].pr.toFixed(3);
+          // this.calTableKg[h+2].crb = this.calTableKg[h+2].crb.toFixed(3);
          //  this.calTableKg[h+2].alc = this.calTableKg[h+2].alc.toFixed(3);
         }
 
@@ -374,11 +222,13 @@ var q1b = "?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name
 //var qfood ="https://trackapi.nutritionix.com/v2/search/item?nix_item_id=c640834927576f2c7fe01c19"
 
 //var appIdKey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
-var appIdKey = "&appId=070559ff&appKey=f6d2e734ca5caf03d4507c0fe374dab8";
+//var appIdKey = "&appId=070559ff&appKey=f6d2e734ca5caf03d4507c0fe374dab8";
+var appIdKey = "&appId=6d721dc8&appKey=5d17efce3bb2b1256020555d47dce16c";
+var vFoodName = $("#foodName").val().trim();
 //var itemIdArr = [];
 
 $.ajax({
-        url: q1a+ $("#foodName").val().trim()+q1b+appIdKey,
+        url: q1a+ vFoodName +q1b+appIdKey,
         //url : qItem+appidkey,
         method: "GET"
       })
@@ -388,9 +238,9 @@ $.ajax({
         //console.log(response.hits[0].fields.item_id);
         //console.log(response);
         
-        for (f=0; f < 8; f++){
+        for (f=0; f < 12; f++){
          userProfile.itemIdArr.push(response.hits[f].fields.item_id);
-         console.log(userProfile.itemIdArr[f]);
+         //console.log(userProfile.itemIdArr[f]);
         }
         //console.log(userProfile.itemIdArr[0]);
 
@@ -401,7 +251,7 @@ var qItem1 = "http://api.nutritionix.com/v1/item/";
 var qItemId = "";
 var qItem2 = "?";
 //$("#foodTableBody").empty();
-for (k=0; k< 6 ;k++){ //userProfile.itemIdArr.length
+for (k=0; k< 9 ;k++){ //userProfile.itemIdArr.length
 
     qItemId = userProfile.itemIdArr[k];
 
@@ -417,7 +267,8 @@ for (k=0; k< 6 ;k++){ //userProfile.itemIdArr.length
 
         //console.log(response2);
         //console.log(response2);
-      if ( !(response2.brand_name === null) && !(response2.nf_calories === null) && (parseInt(response2.nf_calories) > 0) && !(response2.nf_total_fat === null) && (parseInt(response2.nf_total_fat) > 0) && !(response2.nf_protein === null)) {
+      if ( !(response2.brand_name === null) && !(response2.nf_calories === null) && (parseInt(response2.nf_calories) > 0) && !(response2.nf_total_fat === null) && (parseInt(response2.nf_total_fat) > 0) && !(response2.nf_protein === null) && !(response2.brand_name==="USDA") && !(response2.brand_name==="Nutritionix")) {
+
       
        $("#foodTableBody").append("<tr><td>" + response2.brand_name + "</td><td>" + response2.nf_calories + "</td><td>" +
        response2.nf_total_fat + "</td><td>" + response2.nf_protein + "</td><td>" + response2.nf_total_carbohydrate + "</td></tr>");
