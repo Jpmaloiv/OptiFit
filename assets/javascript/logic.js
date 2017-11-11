@@ -375,7 +375,9 @@ var q1b = "?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name
 
 //var appIdKey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
 //var appIdKey = "&appId=070559ff&appKey=f6d2e734ca5caf03d4507c0fe374dab8";
-var appIdKey = "&appId=6d721dc8&appKey=5d17efce3bb2b1256020555d47dce16c";
+//var appIdKey = "&appId=6d721dc8&appKey=5d17efce3bb2b1256020555d47dce16c";
+var appIdKey = "&appId=ed166bb6&appKey=f5b2009c873be56b7df597203aa2cac5";
+
 var vFoodName = $("#foodName").val().trim();
 //var itemIdArr = [];
 
@@ -390,6 +392,7 @@ $.ajax({
         //console.log(response.hits[0].fields.item_id);
         //console.log(response);
        // userProfile.itemIdArr.empty();
+       userProfile.itemIdArr = [];
         for (f=0; f < 12; f++){
          userProfile.itemIdArr.push(response.hits[f].fields.item_id);
          //console.log(userProfile.itemIdArr[f]);
