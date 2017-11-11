@@ -368,7 +368,7 @@ $('#foodName').keyup(function (e) {
 
 function displayFoodResults(){
 
-var q1a = "http://api.nutritionix.com/v1_1/search/"
+var q1a = "https://api.nutritionix.com/v1_1/search/"
 var q1b = "?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Citem_id%2Cbrand_id%2Cnf_calories%2Cnf_protein%2Citem_type";
 //var q2 ="https://trackapi.nutritionix.com/v2/natural/exercise/";
 //var qfood ="https://trackapi.nutritionix.com/v2/search/item?nix_item_id=c640834927576f2c7fe01c19"
@@ -389,7 +389,7 @@ $.ajax({
 
         //console.log(response.hits[0].fields.item_id);
         //console.log(response);
-        userProfile.itemIdArr.empty();
+       // userProfile.itemIdArr.empty();
         for (f=0; f < 12; f++){
          userProfile.itemIdArr.push(response.hits[f].fields.item_id);
          //console.log(userProfile.itemIdArr[f]);
@@ -398,7 +398,7 @@ $.ajax({
 
 
 
-var qItem1 = "http://api.nutritionix.com/v1/item/";
+var qItem1 = "https://api.nutritionix.com/v1/item/";
 //var qItemId = "c640834927576f2c7fe01c19";
 var qItemId = "";
 var qItem2 = "?";
