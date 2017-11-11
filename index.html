@@ -18,6 +18,7 @@
 <body>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<!--  <script type='text/javascript' src="./assets/javascript/d3-logic.js"></script>  -->
   
   <script src="./assets/javascript/googlePlaces.js"></script>
 
@@ -45,7 +46,7 @@
                     <div class="col-sm-6">
                        <input name="weight-input" id='weight-input' type="text" class="form-control" aria-label="..." maxlength="5">
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" id="weight-selection">
                        <select name="weightType" id="weightType">
                          <option value="pounds">Pounds</option><option value="kg">Kg</option>
                        </select>
@@ -117,7 +118,6 @@
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
                               <button Id='submit-button' type="button" class="btn btn-default">SUBMIT</button>
-                              <button Id='testBtn' type="button" class="btn btn-default">TEST API</button>
                             </div>
                         </div>
                      </div>  
@@ -204,17 +204,15 @@
           <table class="table" id="foodTable">
             <thead>
               <tr>
+                <th>Name</th>
                 <th>Calories</th>
                 <th>Fat</th>
                 <th>Protein</th>
                 <th>Carbs</th>
-                <th>Brand</th>
-                <th>USDA</th>
               </tr>
             </thead>
             <tbody>
               <tr class="info">
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -227,7 +225,6 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
               </tr>
               <tr class="active">
                 <td></td>
@@ -235,18 +232,15 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
               </tr>
               <tr class="warning">
-                <td></td>
-                <td></td>
+                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr class="danger">
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

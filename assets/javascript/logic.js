@@ -406,9 +406,6 @@ for (k=0; k<5 ;k++){ //itemIdArr.length
    var qItemMaster = qItem1 + qItemId + qItem2 + appIdKey;
     //console.log(userProfile.itemIdArr[k]);
     //console.log(qItemMaster);
-
-    //console.log(qItemMaster);
-
    $.ajax({
        url: qItemMaster,
        method: "GET"
@@ -416,17 +413,15 @@ for (k=0; k<5 ;k++){ //itemIdArr.length
       
       .done(function(response2) {
 
-       // console.log(response2);
+        console.log(response2);
         //console.log(response2);
        
         $("#foodTable").children().children()[k].children[0].innerHTML = response2.brand_name;
         $("#foodTable").children().children()[k].children[1].innerHTML = response2.nf_calories;
         $("#foodTable").children().children()[k].children[2].innerHTML = response2.nf_total_fat;
-        //$("#foodTable").children().children()[k].children[1].innerHTML = this.calTable[i-1].fat + " lbs/day" ;
-        //$("#foodTable").children().children()[k].children[2].innerHTML = this.calTable[i-1].pr + " lbs/day";
-        //$("#foodTable").children().children()[k].children[3].innerHTML = this.calTable[i-1].crb+ " lbs/day";       
-   //   });
-
+        $("#foodTable").children().children()[k].children[3].innerHTML = response2.nf_protein;
+        $("#foodTable").children().children()[k].children[4].innerHTML = response2.nf_total_carbohydrate;
+        
 });
 
 } // for loop      
