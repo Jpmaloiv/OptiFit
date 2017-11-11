@@ -19,6 +19,8 @@ onePound : 3500,
 oneKg : 7700,
 calTable  : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 2 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 2 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
 calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 0.5 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 0.5 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
+itemIdArr : [],
+test: 0,
 
 
 
@@ -371,30 +373,72 @@ var q1a = "http://api.nutritionix.com/v1_1/search/"
 var q1b = "?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Citem_id%2Cbrand_id%2Cnf_calories%2Cnf_protein%2Citem_type";
 //var q2 ="https://trackapi.nutritionix.com/v2/natural/exercise/";
 //var qfood ="https://trackapi.nutritionix.com/v2/search/item?nix_item_id=c640834927576f2c7fe01c19"
-var qItem = "http://api.nutritionix.com/v1/item/c640834927576f2c7fe01c19?";
-var appidkey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
+
+var appIdKey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
+//var itemIdArr = [];
 
 $.ajax({
-        url: q1a+ $("#foodName").val().trim()+q1b+appidkey,
+        url: q1a+ $("#foodName").val().trim()+q1b+appIdKey,
         //url : qItem+appidkey,
         method: "GET"
       })
       // after the https is done do something
       .done(function(response) {
 
-        console.log(response.hits[0].fields.item_id);
-        console.log(response);
-        //var itemId = [];
-        //for (f=0; f < 12; f++){
-          //  itemId.push(repsonse[f].itemId);
-       // }
-
-    });
+        //console.log(response.hits[0].fields.item_id);
+        //console.log(response);
         
-};
+        for (f=0; f < 10; f++){
+         userProfile.itemIdArr.push(response.hits[f].fields.item_id);
+         //console.log(userProfile.itemIdArr[f]);
+        }
+        //console.log(userProfile.itemIdArr[0]);
+
+
+
+var qItem1 = "http://api.nutritionix.com/v1/item/";
+var qItemId = "";
+var qItem2 = "?";
+
+for (k=0; k<5 ;k++){ //itemIdArr.length
+
+    qItemId = userProfile.itemIdArr[k];
+
+   var qItemMaster = qItem1 + qItemId + qItem2 + appIdKey;
+    //console.log(userProfile.itemIdArr[k]);
+    //console.log(qItemMaster);
+
+    //console.log(qItemMaster);
+
+   $.ajax({
+       url: qItemMaster,
+       method: "GET"
+      })
+      
+      .done(function(response2) {
+
+       // console.log(response2);
+        //console.log(response2);
+       
+        $("#foodTable").children().children()[k].children[0].innerHTML = response2.brand_name;
+        $("#foodTable").children().children()[k].children[1].innerHTML = response2.nf_calories;
+        $("#foodTable").children().children()[k].children[2].innerHTML = response2.nf_total_fat;
+        //$("#foodTable").children().children()[k].children[1].innerHTML = this.calTable[i-1].fat + " lbs/day" ;
+        //$("#foodTable").children().children()[k].children[2].innerHTML = this.calTable[i-1].pr + " lbs/day";
+        //$("#foodTable").children().children()[k].children[3].innerHTML = this.calTable[i-1].crb+ " lbs/day";       
+   //   });
+
+});
+
+} // for loop      
+
+}); //first ajax call
+
+
+}  //function
 
 //$(document).on("click", "#testBtn", function(e){
 
 
-});
+}); //docuemnt
 
