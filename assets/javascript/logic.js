@@ -284,6 +284,7 @@ $("#heightCen").keyup(function(){
 $("#submit-button").on("click", function(e) {
         e.preventDefault(); 
         userProfile.calcCal();
+        drawBarGraph();
         $("#BMIBody").text('Your BMI is '+ userProfile.BMI);
         $("#BMIBody").append("<div>" +"Your are: " + userProfile.BMIDesc + "</div>");
 
