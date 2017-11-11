@@ -399,7 +399,7 @@ var qItem1 = "http://api.nutritionix.com/v1/item/";
 var qItemId = "";
 var qItem2 = "?";
 
-for (k=0; k<2 ;k++){ //itemIdArr.length
+for (k=0; k<5 ;k++){ //itemIdArr.length
 
     qItemId = userProfile.itemIdArr[k];
 
@@ -417,9 +417,11 @@ for (k=0; k<2 ;k++){ //itemIdArr.length
       .done(function(response2) {
 
        // console.log(response2);
-        console.log(response2.nf_calories);
+        //console.log(response2);
        
-        $("#foodTable").children().children()[k].children[0].innerHTML = response2.nf_calories;
+        $("#foodTable").children().children()[k].children[0].innerHTML = response2.brand_name;
+        $("#foodTable").children().children()[k].children[1].innerHTML = response2.nf_calories;
+        $("#foodTable").children().children()[k].children[2].innerHTML = response2.nf_total_fat;
         //$("#foodTable").children().children()[k].children[1].innerHTML = this.calTable[i-1].fat + " lbs/day" ;
         //$("#foodTable").children().children()[k].children[2].innerHTML = this.calTable[i-1].pr + " lbs/day";
         //$("#foodTable").children().children()[k].children[3].innerHTML = this.calTable[i-1].crb+ " lbs/day";       
