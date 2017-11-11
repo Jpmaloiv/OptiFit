@@ -21,6 +21,7 @@ calTable  : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,al
 calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 0.5 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 0.5 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
 
 
+
 calculateBMI: function(height, weight) {
 
 
@@ -79,6 +80,9 @@ if (this.age!='' && cm!='' && this.weight!='') {
     {
         fd=(10*this.weight)+(6.25*cm)-(5*this.age)-161;
     }
+    else{
+        alert("Please select your gender");
+    }
 
     switch(this.activityLevel)
     {
@@ -99,12 +103,17 @@ if (this.age!='' && cm!='' && this.weight!='') {
     break;
     }
     this.caloriesNeeded=Math.floor(this.caloriesNeeded);
-    this.fatNeeded = this.calcFat(this.caloriesNeeded);
-    this.proteinNeeded = this.calcPrCrb(this.caloriesNeeded);
-    this.carbsNeeded = this.calcPrCrb(this.caloriesNeeded);
-    this.alcoholNeeded = this.calcAlc(this.caloriesNeeded);
-
+    //display caloires intake in the  calories header
     $("#caloriesHeading").text("Calories Needed : " + this.caloriesNeeded + " Kcal/day");
+
+    //this.fatNeeded = this.calcFat(this.caloriesNeeded);
+    //this.proteinNeeded = this.calcPrCrb(this.caloriesNeeded);
+   // this.carbsNeeded = this.calcPrCrb(this.caloriesNeeded);
+   // this.alcoholNeeded = this.calcAlc(this.caloriesNeeded);
+   // if ($("#weightType").val()==="pounds") {
+   //     this.handlePoundWeight
+   // }
+   
 
     if ( ($("#resultType").val()==="g") && (userProfile.caloriesNeeded > 0) ){
 
@@ -114,17 +123,6 @@ if (this.age!='' && cm!='' && this.weight!='') {
     {
         userProfile.displayResultsPounds();
     }
-
-   // if (this.weightType==="pounds") {
-
-     //   this.displayResultsPounds();
-
-    //}
-    //else
-    //{    
-
-      //  this.displayResultsGrms();      
-    //} 
 }
 else
 {
@@ -135,19 +133,21 @@ alert("Please fill your details properly!");
 
 calcFat: function(cal){
 
-    return Math.floor((cal*0.25)/9);
+    return Math.floor((cal*0.333)/9);
+
 },
 
 calcPrCrb: function(cal){
 
-    return Math.floor((cal*0.25)/4);
+    return Math.floor((cal*0.333)/4);
     
 },
 
-calcAlc: function(cal){
+//calcAlc: function(cal){
 
-    return Math.floor((cal*0.25)/7);
-},
+
+ //   return Math.floor((cal*0.333)/7);
+//},
 
 displayResultsGrms: function(){
 
@@ -155,18 +155,19 @@ displayResultsGrms: function(){
 
     // fill the array with new calories needed in order to loose weight
         for (j=0; j <3; j++){
+
         
            this.calTableKg[j].cal = Math.floor(this.caloriesNeeded - (kgsDay*0.5*j));
 
            this.calTableKg[j].fat = this.calcFat(this.calTableKg[j].cal);
            this.calTableKg[j].pr = this.calcPrCrb(this.calTableKg[j].cal);
            this.calTableKg[j].crb = this.calcPrCrb(this.calTableKg[j].cal);
-           this.calTableKg[j].alc = this.calcAlc(this.calTableKg[j].cal);
+          // this.calTableKg[j].alc = this.calcAlc(this.calTableKg[j].cal);
 
            this.calTableKg[j].fat =  this.calTableKg[j].fat.toFixed(3);
            this.calTableKg[j].pr = this.calTableKg[j].pr.toFixed(3);
            this.calTableKg[j].crb = this.calTableKg[j].crb.toFixed(3);
-           this.calTableKg[j].alc = this.calTableKg[j].alc.toFixed(3);
+           //this.calTableKg[j].alc = this.calTableKg[j].alc.toFixed(3);
         }
 
         // fill the array with new calories needed in order to gain weight
@@ -177,12 +178,12 @@ displayResultsGrms: function(){
            this.calTableKg[h+2].fat = this.calcFat(this.calTableKg[h+2].cal);
            this.calTableKg[h+2].pr = this.calcPrCrb(this.calTableKg[h+2].cal);
            this.calTableKg[h+2].crb = this.calcPrCrb(this.calTableKg[h+2].cal);
-           this.calTableKg[h+2].alc = this.calcAlc(this.calTableKg[h+2].cal);
+         //  this.calTableKg[h+2].alc = this.calcAlc(this.calTableKg[h+2].cal);
 
            this.calTableKg[h+2].fat =  this.calTableKg[h+2].fat.toFixed(3);
            this.calTableKg[h+2].pr = this.calTableKg[h+2].pr.toFixed(3);
            this.calTableKg[h+2].crb = this.calTableKg[h+2].crb.toFixed(3);
-           this.calTableKg[h+2].alc = this.calTableKg[h+2].alc.toFixed(3);
+         //  this.calTableKg[h+2].alc = this.calTableKg[h+2].alc.toFixed(3);
         }
 
         
@@ -191,10 +192,10 @@ displayResultsGrms: function(){
     for (i=1; i <6;i++){
 
         $("#caloriesTable").children().children()[i].children[0].innerHTML = this.calTableKg[i-1].desc + this.calTableKg[i-1].cal + " Kcal/day" ;
-        $("#caloriesTable").children().children()[i].children[1].innerHTML = this.calTableKg[i-1].fat + " grms/day" ;
-        $("#caloriesTable").children().children()[i].children[2].innerHTML = this.calTableKg[i-1].pr + " grms/day";
-        $("#caloriesTable").children().children()[i].children[3].innerHTML = this.calTableKg[i-1].crb+ " grms/day";
-        $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTableKg[i-1].alc+ " grms/day" ;
+        $("#caloriesTable").children().children()[i].children[1].innerHTML = this.calTableKg[i-1].fat + " g/day" ;
+        $("#caloriesTable").children().children()[i].children[2].innerHTML = this.calTableKg[i-1].pr + " g/day";
+        $("#caloriesTable").children().children()[i].children[3].innerHTML = this.calTableKg[i-1].crb+ " g/day";
+       // $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTableKg[i-1].alc+ " grms/day" ;
 
     }
     
@@ -206,17 +207,18 @@ displayResultsPounds: function(){
 
             // fill the array with new calories needed in order to loose weight
             for (j=0; j <3; j++){
+
             
                this.calTable[j].cal = Math.floor(this.caloriesNeeded - (poundsDay*j));
                this.calTable[j].fat = this.calcFat(this.calTable[j].cal) * 0.0022;
                this.calTable[j].pr = this.calcPrCrb(this.calTable[j].cal) * 0.0022;
                this.calTable[j].crb = this.calcPrCrb(this.calTable[j].cal) * 0.0022;
-               this.calTable[j].alc = this.calcAlc(this.calTable[j].cal) * 0.0022;
+               //this.calTable[j].alc = this.calcAlc(this.calTable[j].cal) * 0.0022;
 
                this.calTable[j].fat =  this.calTable[j].fat.toFixed(3);
                this.calTable[j].pr = this.calTable[j].pr.toFixed(3);
                this.calTable[j].crb = this.calTable[j].crb.toFixed(3);
-               this.calTable[j].alc = this.calTable[j].alc.toFixed(3);
+              // this.calTable[j].alc = this.calTable[j].alc.toFixed(3);
             }
 
             // fill the array with new calories needed in order to gain weight
@@ -227,12 +229,12 @@ displayResultsPounds: function(){
                this.calTable[h+2].fat = this.calcFat(this.calTable[h+2].cal) * 0.0022;
                this.calTable[h+2].pr = this.calcPrCrb(this.calTable[h+2].cal) * 0.0022;
                this.calTable[h+2].crb = this.calcPrCrb(this.calTable[h+2].cal) * 0.0022;
-               this.calTable[h+2].alc = this.calcAlc(this.calTable[h+2].cal) * 0.0022;
+              // this.calTable[h+2].alc = this.calcAlc(this.calTable[h+2].cal) * 0.0022;
 
                this.calTable[h+2].fat =  this.calTable[h+2].fat.toFixed(3);
                this.calTable[h+2].pr = this.calTable[h+2].pr.toFixed(3);
                this.calTable[h+2].crb = this.calTable[h+2].crb.toFixed(3);
-               this.calTable[h+2].alc = this.calTable[h+2].alc.toFixed(3);
+              // this.calTable[h+2].alc = this.calTable[h+2].alc.toFixed(3);
             }
 
             
@@ -244,7 +246,7 @@ displayResultsPounds: function(){
             $("#caloriesTable").children().children()[i].children[1].innerHTML = this.calTable[i-1].fat + " lbs/day" ;
             $("#caloriesTable").children().children()[i].children[2].innerHTML = this.calTable[i-1].pr + " lbs/day";
             $("#caloriesTable").children().children()[i].children[3].innerHTML = this.calTable[i-1].crb+ " lbs/day";
-            $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTable[i-1].alc+ " lbs/day" ;
+           // $("#caloriesTable").children().children()[i].children[4].innerHTML = this.calTable[i-1].alc+ " lbs/day" ;
 
         }
 
@@ -290,12 +292,16 @@ $("#age-input").keypress(function(){
 });
 
 
-$("select").change(function(){
+$("#height-inches-input").change(function(){
+    heightConvert();
+});
+
+$("#height-feet-input").change(function(){
     heightConvert();
 });
 
 $("#heightCen").change(function(){
-    convertCen($("#heightCen").val());
+    convertCen($("#heightCen").val());    
 });
 
 $("#resultType").change(function(){
@@ -351,6 +357,43 @@ function convertCen(num)
 }
 
 
+$('#foodName').keyup(function (e) {
+    e.preventDefault();
+    if (e.keyCode === 13) {
+       displayFoodResults();
+    }
+});
+
+function displayFoodResults(){
+
+var q1a = "http://api.nutritionix.com/v1_1/search/"
+var q1b = "?results=0%3A20&cal_min=0&cal_max=50000&fields=item_name%2Cbrand_name%2Citem_id%2Cbrand_id%2Cnf_calories%2Cnf_protein%2Citem_type";
+//var q2 ="https://trackapi.nutritionix.com/v2/natural/exercise/";
+//var qfood ="https://trackapi.nutritionix.com/v2/search/item?nix_item_id=c640834927576f2c7fe01c19"
+var qItem = "http://api.nutritionix.com/v1/item/c640834927576f2c7fe01c19?";
+var appidkey = "&appId=134566b1&appKey=f9027d278476a7c5a9458ef1eca1fa7e";
+
+$.ajax({
+        url: q1a+ $("#foodName").val().trim()+q1b+appidkey,
+        //url : qItem+appidkey,
+        method: "GET"
+      })
+      // after the https is done do something
+      .done(function(response) {
+
+        console.log(response.hits[0].fields.item_id);
+        console.log(response);
+        //var itemId = [];
+        //for (f=0; f < 12; f++){
+          //  itemId.push(repsonse[f].itemId);
+       // }
+
+    });
         
+};
+
+//$(document).on("click", "#testBtn", function(e){
+
+
 });
 
