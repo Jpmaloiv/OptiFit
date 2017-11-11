@@ -261,6 +261,15 @@ displayResultsPounds: function(){
 
 $(document).ready(function() {
 
+$("#age-input").keyup(function(){
+
+    var number = $("#age-input").val();
+    if(!number.match(/^[0-9\.]+$/) && number !=""){
+        number = number.substring(0,number.length-1);
+        $("#age-input").val(number);
+    }
+});
+
 $("#weight-input").keyup(function(){
 
     var number = $("#weight-input").val();
