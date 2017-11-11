@@ -1,4 +1,156 @@
 
+var userProfile = {
+weight : 0,
+weightType: '',
+heightFt : 0,
+heightIn : 0,
+height : 0 ,
+age    :  0,
+gender :  '',
+activityLevel : '',
+BMI : 0,
+BMIDesc:"",
+fatNeeded :0,
+caloriesNeeded : 0,
+proteinNeeded : 0,
+carbsNeeded: 0,
+alcoholNeeded:0,
+onePound : 3500,
+oneKg : 7700,
+calTable  : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To lose 1 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To lose 2 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 2 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
+calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To lose 0.5 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To lose 1 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 0.5 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
+itemIdArr : [],
+itemDetails: [],
+
+
+
+calculateBMI: function(height, weight) {
+
+
+   if ($("#weightType").val().trim() ==="kg"){
+        weight = weight * 2.2046 ;   
+    }
+   var BMI = (weight / (height * height)) * 703
+   var bmiVal = Math.round(BMI * Math.pow(10, 2)) / Math.pow(10, 2);
+   if  (bmiVal < 18.5){
+      this.BMIDesc = "Underweight";
+   }
+   else if (bmiVal < 24.9){
+      this.BMIDesc = "Normal";
+   }
+   else if (bmiVal < 30){
+      this.BMIDesc = "Overweight";
+   }
+   else if (bmiVal > 30){
+      this.BMIDesc = "Obesse";
+   }
+
+    return bmiVal;
+},
+
+
+calcCal: function(){
+
+var fd =0;
+
+this.age = parseInt($("#age-input").val().trim());
+this.heightFt = parseInt($("#height-feet-input").val().trim());
+this.heightIn = parseInt($("#height-inches-input").val().trim());
+this.height   = parseFloat( this.heightFt * 12) + parseFloat(this.heightIn);
+this.weightType = $("#weightType").val().trim();
+this.weight = parseInt($("#weight-input").val().trim());
+
+var cm = $("#heightCen").val().trim();
+
+//Calling BMI calculate function
+this.BMI = this.calculateBMI(this.height, this.weight);
+
+
+if (this.age!='' && cm!='' && this.weight!='') {
+    if (this.weightType==="pounds"){
+        this.weight=parseInt(this.weight);
+        this.weight=Math.round(this.weight/2.2046);
+    }
+
+    this.activityLevel= $("#activityLevel").val();
+    if (document.getElementById('genderMale').checked)
+    {
+        
+        fd=(10*this.weight)+(6.25*cm)-(5*this.age)+5;
+    }
+    else if (document.getElementById('genderFemale').checked)
+    {
+        fd=(10*this.weight)+(6.25*cm)-(5*this.age)-161;
+    }
+    else{
+        alert("Please select your gender");
+    }
+
+    switch(this.activityLevel)
+    {
+    case "1":
+    this.caloriesNeeded=fd*1.2;
+    break;
+    case "2":
+    this.caloriesNeeded=fd*1.375
+    break;
+    case "3":
+    this.caloriesNeeded=fd*1.53;
+    break;
+    case "4":
+    this.caloriesNeeded=fd*1.725;
+    break;
+    case "5":
+    this.caloriesNeeded=fd*1.9;
+    break;
+    }
+    this.caloriesNeeded=Math.floor(this.caloriesNeeded);
+    //display caloires intake in the  calories header
+    $("#caloriesHeading").text("Calories Needed : " + this.caloriesNeeded + " Kcal/day");
+
+    //this.fatNeeded = this.calcFat(this.caloriesNeeded);
+    //this.proteinNeeded = this.calcPrCrb(this.caloriesNeeded);
+   // this.carbsNeeded = this.calcPrCrb(this.caloriesNeeded);
+   // this.alcoholNeeded = this.calcAlc(this.caloriesNeeded);
+   // if ($("#weightType").val()==="pounds") {
+   //     this.handlePoundWeight
+   // }
+   
+
+    if ( ($("#resultType").val()==="g") && (userProfile.caloriesNeeded > 0) ){
+
+        userProfile.displayResultsGrms();
+    }
+    else if (userProfile.caloriesNeeded > 0)
+    {
+        userProfile.displayResultsPounds();
+    }
+}
+else
+{
+alert("Please fill your details properly!");
+}
+
+}, // end of calcCal function
+
+calcFat: function(cal){
+
+    return Math.floor((cal*0.333)/9);
+
+},
+
+calcPrCrb: function(cal){
+
+    return Math.floor((cal*0.333)/4);
+    
+},
+
+//calcAlc: function(cal){
+
+
+ //   return Math.floor((cal*0.333)/7);
+//},
+
 displayResultsGrms: function(){
 
     var kgsDay = userProfile.oneKg/7;
@@ -237,7 +389,7 @@ $.ajax({
 
         //console.log(response.hits[0].fields.item_id);
         //console.log(response);
-        
+        userProfile.itemIdArr.empty();
         for (f=0; f < 12; f++){
          userProfile.itemIdArr.push(response.hits[f].fields.item_id);
          //console.log(userProfile.itemIdArr[f]);
@@ -250,13 +402,13 @@ var qItem1 = "http://api.nutritionix.com/v1/item/";
 //var qItemId = "c640834927576f2c7fe01c19";
 var qItemId = "";
 var qItem2 = "?";
-//$("#foodTableBody").empty();
+$("#foodTableBody").empty();
 for (k=0; k< 9 ;k++){ //userProfile.itemIdArr.length
 
-    qItemId = userProfile.itemIdArr[k];
+  qItemId = userProfile.itemIdArr[k];
 
    var qItemMaster = qItem1 + qItemId + qItem2 + appIdKey;
-    //console.log(userProfile.itemIdArr[k]);
+    console.log(qItemMaster);
     //console.log(qItemMaster);
    $.ajax({
        url: qItemMaster,
