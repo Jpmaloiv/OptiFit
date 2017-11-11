@@ -20,7 +20,7 @@ oneKg : 7700,
 calTable  : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 2 lbs/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 2 lbs/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
 calTableKg : [{desc:"To maintain your weight you need:",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 0.5 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To loose 1 kg/week you need : ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 0.5 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0},{desc:"To gain 1 kg/week you need: ",cal:0,fat:0,pr:0,crb:0,alc:0}],
 itemIdArr : [],
-test: 0,
+itemDetails: [],
 
 
 
@@ -388,28 +388,26 @@ $.ajax({
         //console.log(response.hits[0].fields.item_id);
         //console.log(response);
         
-        for (f=0; f < 10; f++){
+        for (f=0; f < 8; f++){
          userProfile.itemIdArr.push(response.hits[f].fields.item_id);
-         //console.log(userProfile.itemIdArr[f]);
+         console.log(userProfile.itemIdArr[f]);
         }
         //console.log(userProfile.itemIdArr[0]);
 
 
 
 var qItem1 = "http://api.nutritionix.com/v1/item/";
+//var qItemId = "c640834927576f2c7fe01c19";
 var qItemId = "";
 var qItem2 = "?";
-
-for (k=0; k<5 ;k++){ //itemIdArr.length
+//$("#foodTableBody").empty();
+for (k=0; k< 6 ;k++){ //userProfile.itemIdArr.length
 
     qItemId = userProfile.itemIdArr[k];
 
    var qItemMaster = qItem1 + qItemId + qItem2 + appIdKey;
     //console.log(userProfile.itemIdArr[k]);
     //console.log(qItemMaster);
-
-    //console.log(qItemMaster);
-
    $.ajax({
        url: qItemMaster,
        method: "GET"
@@ -417,18 +415,19 @@ for (k=0; k<5 ;k++){ //itemIdArr.length
       
       .done(function(response2) {
 
-       // console.log(response2);
         //console.log(response2);
-       
-        $("#foodTable").children().children()[k].children[0].innerHTML = response2.brand_name;
-        $("#foodTable").children().children()[k].children[1].innerHTML = response2.nf_calories;
-        $("#foodTable").children().children()[k].children[2].innerHTML = response2.nf_total_fat;
-        //$("#foodTable").children().children()[k].children[1].innerHTML = this.calTable[i-1].fat + " lbs/day" ;
-        //$("#foodTable").children().children()[k].children[2].innerHTML = this.calTable[i-1].pr + " lbs/day";
-        //$("#foodTable").children().children()[k].children[3].innerHTML = this.calTable[i-1].crb+ " lbs/day";       
-   //   });
+        //console.log(response2);
+      if ( !(response2.brand_name === null) && !(response2.nf_calories === null) && !(response2.nf_total_fat === null) && !(response2.nf_protein === null)) {
+      
+       $("#foodTableBody").append("<tr><td>" + response2.brand_name + "</td><td>" + response2.nf_calories + "</td><td>" +
+       response2.nf_total_fat + "</td><td>" + response2.nf_protein + "</td><td>" + response2.nf_total_carbohydrate + "</td></tr>");
+     }
 
+     //  var testDiv = $("<div>"+ response2.brand_name +"  " +response2.nf_calories+ "  " +response2.nf_total_fat + "</div>");
+     //   $("#foodListBody").append(testDiv);
+        
 });
+
 
 } // for loop      
 
